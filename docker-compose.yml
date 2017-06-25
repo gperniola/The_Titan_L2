@@ -1,0 +1,20 @@
+version: '3'
+services:
+  db:
+    image: gperniola/mnemosine:latest
+    ports:
+      - "3350:3306"
+
+  core:
+    image: gperniola/temi:latest
+    tty: true
+    volumes:
+      - ./core/game_dev/config:/usr/src/game_dev/config
+      - ./core/game_live/config:/usr/src/game_live/config
+      - ./core/login/config:/usr/src/login/config
+    ports:
+      - "2106:2106"
+      - "7777:7777"
+      - "7778:7778"
+    depends_on:
+      - db
